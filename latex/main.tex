@@ -1,0 +1,178 @@
+\documentclass{IEEEtran}
+% \documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{booktabs}
+\usepackage{amsmath, amssymb}
+\usepackage{microtype}
+
+\title{SerenEEG: A Lightweight Hybrid Machine Learning Approach to Insomnia Detection from Ear-EEG.}
+\author{Maggie Sun and Hannah Tay}
+\overfullrule=5pt
+\date{December 2025}
+
+\begin{document}
+
+\maketitle
+
+
+% % best overall
+% \begin{table}[h!]
+% \caption{Best performance of baseline classical and deep learning models trained on handcrafted EEG features or raw waveforms.}
+% ~\\
+% \begin{tabular}{c c c c c c c c}
+%      \toprule
+%      Model & Accuracy & Prec(0) & Prec(1) & Recall(0) & Recall(1) & F1\\
+%      \midrule
+%      RF & 94.47 & 71.70 & 99.20 & 94.66 & 94.40 & 89.22\\
+%      XGB & 96.72 & 84.06 & 98.83 & 92.28 & 97.39 & 93.04 \\
+%      CNN & 96.54 & 69.98 & 99.85 & 96.45 & 99.39 & 89.13\\
+%      \bottomrule
+% \end{tabular}
+% \end{table}
+
+% \begin{table}[h!]
+% %best cv with SPREAD
+% \caption{Performance metrics for baseline model 5-fold GroupK cross validation}
+% ~\\
+% \begin{tabular}{c c c c c c c c}
+%      \toprule
+%      Model & Accuracy & Prec(0) & Prec(1) & Recall(0) & Recall(1) & F1\\
+%      \midrule
+%      RF & 90.76 & 65.48 & 98.35 & 90.14 & 92.51 & 85.59\\
+%      XGB & 90.51 & 51.67 & 96.50 & 69.43 & 92.84 & 76.94\\
+%      CNN & 96.54 & 69.98 & 99.85 & 96.45 & 96.39 & 89.13\\
+%      \bottomrule
+
+% \end{tabular}
+% \end{table}
+
+% \begin{table}[h!]
+% \caption{Performance metrics for leave-one-subject-out (LOSO) cross-validation on ear-EEG using CNN embeddings}
+% ~\\
+% \centering
+% \begin{tabular}{c c c c c c c}
+% \toprule
+% Model & Accuracy & Prec(0) & Prec(1) & Rec(0) & Rec(1) & F1 \\
+% \midrule
+% RF (CNN emb)  & 96.95 & 88.89 & 97.54 & 72.73 & 99.17 & 98.35 \\
+% XGB (CNN emb) & 96.95 & 88.89 & 97.54 & 72.73 & 99.17 & 98.35 \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+\section{Introduction}
+\subsection{Issue Statement}
+Insomnia is a widespread public-health challenge affecting 30-40\% of the global population, with an additional 10-15\% experiencing it chronically \cite{fernandez-mendozaInsomniaPhenotypesCardiovascular2025}. Beyond sleep disruption, chronic insomnia is strongly associated with mental-health conditions; individuals with persistent insomnia face up to 17 times higher risk of developing mental health disorders such as anxiety and depression \cite{HowSleepAffects}. In addition to its psychological burden, insomnia significantly hinders daytime academic and workplace performance due to impaired attention and memory. 
+
+\subsection{Current Solutions and Associate Issues}
+Despite insomnia’s prevalence and impact, effective treatment remains inaccessible to many. First-line interventions such as cognitive behavioral therapy require structured sessions with trained therapists and sustained patient participation, limiting scalability and access \cite{WhenYouCant}. Pharmacological treatments, including sedative-hypnotics, often take 30-60 minutes to take effect and are associated with side effects such as next-day drowsiness, confusion, dry mouth, and constipation \cite{HowLongDoes2022,PrescriptionSleepingPills}. Commercial cranial electrotherapy stimulation such as Alpha-Stim AID and Fisher-Wallace Stimulator cost from $600 to $1300 and show inconsistent clinical efficacy. Notably, a large multicenter randomized controlled trial of Alpha-Stim AID found that while the device was safe, it was no more effective than a sham device \cite{morrissClinicalEffectivenessActive2023}. 
+
+\subsection{Reasoning}
+Since insomnia and anxiety are strongly associated with neurophysiological changes in brain activity, EEG provides a non-invasive method for capturing these changes, and while traditional scalp EEG provides high-quality neural signals, it is impractical for long term sleep monitoring due to its complexity and discomfort \cite{hanzalInvestigationDiscomfortFatigue2023}. Ear-EEG offers a more portable and user-friendly alternative; however, large, well-annotated ear-EEG datasets for insomnia remain limited. By contrast, scalp EEG datasets provide extensive, high-quality data that capture signatures of sleep disruption \cite{hammourScalpEarEEGGeneralizable2024}. Integrated with artificial intelligence, ear-EEG grows to be a promising solution to chronic insomnia, even more powerful than traditional scalp-EEG.
+
+\section{Related Works}
+\subsection{Summary of Literature Review}
+Insomnia detection research over the past five years follows several major directions. One line of work has explored ear-EEG as an alternative to traditional scalp-EEG, with multiple studies reporting its efficacy in long-term sleep recording despite reduced signal amplitude and increased noise \cite{moumaneSignalQualityEvaluation2024a,hammourScalpEarEEGGeneralizable2024,mihaiungureanuNextFrontierBrain2025}. A second direction involves the integration of machine learning for detection, broadly falling into two paths: classical machine learning and deep learning. While classical models have consistently achieved high reported accuracies of over 90\%, deep learning performance has varied between 80-90\% \cite{tiwariDetectionInsomniaUsing2022,sharmaAutomatedInsomniaDetection2023,philipmulamoottilDoublelayeredFullyAutomated2024,mondalAutomaticClassificationInsomnia2025}. Not only have deep learning models failed to surpass classical ML, they continue to face limitations associated with black-box predictions. This trend is likely influenced by the limited amount of diverse datasets and the inherent difficulty of collecting data. Among these studies, only Tiwari et al. 2022 collected original EEG data while subsequent work relied exclusively on public datasets. Furthermore, none of these models have been evaluated in real-time clinical settings, with most studies limiting claims to potential applicability rather than demonstrated deployment. A third, parallel line of research has focused on the use of taVNS in mediating insomnia. Recent studies report that taVNS is safe, well-tolerated, and produces sustained improvements in symptoms for up to twenty weeks; however, further investigation is still required to clarify underlying mechanisms \cite{zhangTranscutaneousAuricularVagus2024a,liuTranscutaneousAuricularVagus2025}.
+
+\subsection{Research Gaps}
+Although some progress has been made in insomnia detection using EEG, several critical research gaps remain. First, the availability of large, well-annotated insomnia datasets is limited, which constrains the deployment and robustness of both classical and deep learning models, which fail to leverage their full ability to capture EEG patterns. Collecting such datasets is particularly challenging due to the high cost, time requirements, need for overnight PSD and logistical barriers associated with long-term sleep monitoring. Second, the majority of prior studies focus on offline analysis rather than real-time deployment, limiting their clinical applicability particularly for wearable systems where latency and computational efficiency are critical. Third, while some neural networks have been explored, there remains a wide range of architectures that are under-investigated due to dataset size constraints, and many existing approaches often fail to outperform classical counterparts and address their black-box nature.
+
+\subsection{Proposed Solution}
+To address these gaps, SerenEEG introduces a hybrid system that integrates Random Forest (RF) and a 1D Convolutional Neural Network (CNN). The CNN operates directly on preprocessed ear-EEG segments to learn compact latent representations, which are subsequently used by the classical models to perform subject-level classification. EEG data acquired from the SerenEEG hardware is processed in real time by this hybrid pipeline, and the resulting predictions are used to determine whether a taVNS intervention should be triggered. To address concerns surrounding model interpretability, SHAP-based analysis is applied to the classical classifier, reducing the black-box nature of the overall system.
+
+\section{Methodology}
+
+
+\subsection{Data}
+EEG data were obtained from publicly available sleep and mental-health datasets, including ISRUC-Sleep, Mendeley EEG/EOG/EMG data from a cross-sectional study on psychophysiological insomnia and normal sleep subjects, and the Cyclic Alternating Pattern (CAP) Sleep Database. For classical machine learning experiments, the combined dataset comprised 122 subjects, including 11 healthy controls and 111 individuals with insomnia-related conditions. EEG signals from channels F4A1, C4A1, and O2A1 were used, all recorded using standard clinical scalp configurations. For deep learning experiments, the data expanded to include an additional 9 disordered subjects from the CAP Sleep database, resulting in a total of 131 subjects. EEG recordings were segmented into 30-second epochs sampled at 200 Hz. Each sample was labeled as 0 (minority class) or 1 (majority class). The resulting input tensor had dimensions of \[
+X \in \mathbb{R}^{N_{\text{samples}} \times N_{\text{channels}} \times T}
+\]To bridge the gap between scalp and ear-EEG modalities, SerenEEG trains models on scalp EEG channels referenced to the A1 mastoid, which is anatomically proximal to the ear and commonly used as a reference in both clinical EEG and ear-EEG configurations. This strategy enables scalable training on large scalp EEG datasets while maintaining compatibility with real-time ear-EEG deployment. Additionally, to support deployment on ear-EEG hardware and reduce domain mismatch, the Ear-EEG Sleep Monitoring 2019 (EESM19) dataset was additionally used for domain adaptation. EESM19 consists of multi-night ear-EEG recordings from healthy subjects collected in home environments. A subset of ear-EEG sleep recordings was processed using bipolar channel configurations and identical preprocessing steps to fine-tune the CNN while preserving its learned temporal representations. 
+Table~\ref{tab:datasets} summarizes the datasets, participant counts, and their
+usage across modeling pipelines.
+%data info
+\begin{table}[h!]
+\centering
+\small
+\caption{Dataset summary used for training and evaluation.}
+\label{tab:datasets}
+\vspace{2mm}
+\begin{tabular}{lccc}
+\toprule
+Dataset & Participants & Epoch Size & Used In \\
+\midrule
+ISRUC-Sleep        & 100 & 30 s @ 200 Hz & DL, ML \\
+Mendeley (1)  & 11  & 30 s @ 200 Hz & DL, ML \\
+Mendeley (0)    & 11  & 30 s @ 200 Hz & DL, ML \\
+CAP Sleep          & 9   & 30 s @ 200 Hz & DL \\
+EESM19             & 10  & 30 s @ 200 Hz & DL \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Data Preprocessing}
+Raw EEG signals were first denoised using a bandpass filter from 0.5-40 Hz to remove low-frequency drift and high-frequency noise. Signals were then resampled to 200 Hz, segmented into 30-second epochs, and normalized per epoch using z-score normalization. Table~\ref{tab:preprocessing} summarizes the preprocessing pipeline for all experiments. This preprocessing pipeline follows standard practices in sleep EEG analysis. 
+\begin{table}[h!]
+\centering
+\small
+\caption{EEG preprocessing pipeline applied across all experiments.}
+\label{tab:preprocessing}
+\vspace{2mm}
+\begin{tabular}{l p{7cm}}
+\toprule
+Stage & Description \\
+\midrule
+Filtering      & 0.5--40 Hz Butterworth bandpass to remove drift and high-frequency noise \\
+Resampling     & All recordings resampled to 200 Hz \\
+Epoching       & Segmentation into 30-second epochs across three EEG channels \\
+Normalization  & Z-score normalization applied per epoch \\
+\bottomrule
+\end{tabular}
+\end{table}
+%FIX WHY THERES AN INDENT?>>
+Feature extraction was only applied for classical machine learning models, while deep learning models trained directly on normalized data. For classical machine learning experiments, features were extracted from the preprocessed. These included five power spectral density bands (alpha beta delta gamma theta), four band ratios (delta/theta, delta/alpha, alpha/beta, theta/alpha), Hjorth parameters (mobility, complexity, variance), and three basic statistical features including mean, standard, and skew. 
+
+\subsection{ML Development}
+\subsubsection{Base-level Classical Machine Learning Models}
+As an initial modeling baseline, RF and XGB classifiers were trained directly on fifteen hand-crafted EEG features extracted from scalp EEG recordings.To improve generalization and reduce feature redundancy, Recursive Feature Elimination (RFE) was applied as part of the optimization pipeline. Hyperparameters were tuned using a two-stage strategy: RandomizedSearchCV was first used to identify promising regions of the search space, followed by GridSearchCV for fine-grained optimization. All evaluations were conducted using subject-wise cross-validation to prevent data leakage across epochs. These base-level models serve two purposes: first, they provide a transparent and well-established performance reference grounded in prior insomnia detection literature; second, they enable direct comparison between traditional feature-based approaches and the proposed deep learning–driven pipeline. Maintaining these base models allows clear attribution of performance gains to representation learning and domain adaptation rather than dataset or evaluation changes. This is particularly important given the class imbalance and limited number of subjects commonly encountered in sleep EEG studies.
+
+\subsubsection{CNN Model Architecture}
+A lightweight one dimensional convolutional neural network was developed to operate directly on preprocessed EEG epochs. The network consists of three convolutional blocks each with batch normalization and max pooling, followed by global average pooling and fully connected layers. The CNN was trained using binary cross-entropy loss and optimized with the Adam optimizer. Dropout regularization was applied in the fully connected layers to mitigate overfitting, and the model outputs a single logit corresponding to the probability of insomnia-related sleep disturbance.
+
+\subsubsection{Domain Adaptation Using Ear-EEG Data}
+Since scalp EEG datasets and ear-EEG deployment have a domain gap, the CNN was first trained on scalp EEG data from ISRUC Sleep, Mendeley, and CAP Sleep Database and subsequently fine-tuned using EESM19. During fine-tuning, convolutional layers were frozen and only the fully connected layers were updated, allowing the model to adapt to ear-EEG signal characteristics while preserving learned temporal representations. Since the goal of domain adaptation is to align representations, loss was optimized and used instead of standard evaluation metrics due to its ability to answer the question of generalization and alignment. Figure~\ref{fig:loss} shows the decrease in loss over the course of domain adaptation.
+\begin{figure}[t]
+\label{fig:loss}
+    \centering
+    \includegraphics[width=0.9\linewidth]{../figures/cnn_loss.png}
+    \caption{Binary cross-entropy loss across fine-tuning epochs for domain adaptation of the CNN to EESM19. The rapid initial decrease followed by convergence suggests effective alignment of learned representations.}
+    \label{fig:pipeline}
+\end{figure}
+
+\subsubsection{CNN-Based embedding extraction and hybrid classification}
+Following fine-tuning, the CNN was repurposed as a feature extractor by removing the final classification layer. The resulting 64-dimensional embeddings capture high-level temporal representations learned from the raw EEG signals which were aggregated at the subject level using mean and standard deviation pooling to be used as inputs to RF and XGB classifiers. Final predictions are produced by RF classifier, while the CNN serves as a feature-learning backbone. Table~\ref{tab:model-strat} summarizes all experiments and their inputs representations.
+%model strat
+\begin{table}[h!]
+\centering
+\small
+\caption{Modeling strategies and input representations.}
+\vspace{2mm}
+\begin{tabular}{lccc}
+\toprule
+Model & Subjects & Input Representation & Samples \\
+\midrule
+RF, XGB  & 122 & Feature vectors (45D) & 107{,}415 \\
+CNN          & 131 & (3 $\times$ 6000) waveform & 120{,}862 \\
+CNN + RF       & 131 & CNN embeddings (64D)        & 120{,}862 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Interpretability}
+To address interpretability concerns, SHAP (SHapley Additive exPlanations) analysis was applied to the RF and XGB models trained on CNN-derived embeddings. This enables identification of embedding dimensions most influential in model decisions, reducing the black-box nature of the system and providing post-hoc validation of learned representations.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}
+
+
