@@ -14,51 +14,14 @@
 
 \maketitle
 
+\begin{abstract}
+    
+\end{abstract}
 
-% % best overall
-% \begin{table}[h!]
-% \caption{Best performance of baseline classical and deep learning models trained on handcrafted EEG features or raw waveforms.}
-% ~\\
-% \begin{tabular}{c c c c c c c c}
-%      \toprule
-%      Model & Accuracy & Prec(0) & Prec(1) & Recall(0) & Recall(1) & F1\\
-%      \midrule
-%      RF & 94.47 & 71.70 & 99.20 & 94.66 & 94.40 & 89.22\\
-%      XGB & 96.72 & 84.06 & 98.83 & 92.28 & 97.39 & 93.04 \\
-%      CNN & 96.54 & 69.98 & 99.85 & 96.45 & 99.39 & 89.13\\
-%      \bottomrule
-% \end{tabular}
-% \end{table}
 
-% \begin{table}[h!]
-% %best cv with SPREAD
-% \caption{Performance metrics for baseline model 5-fold GroupK cross validation}
-% ~\\
-% \begin{tabular}{c c c c c c c c}
-%      \toprule
-%      Model & Accuracy & Prec(0) & Prec(1) & Recall(0) & Recall(1) & F1\\
-%      \midrule
-%      RF & 90.76 & 65.48 & 98.35 & 90.14 & 92.51 & 85.59\\
-%      XGB & 90.51 & 51.67 & 96.50 & 69.43 & 92.84 & 76.94\\
-%      CNN & 96.54 & 69.98 & 99.85 & 96.45 & 96.39 & 89.13\\
-%      \bottomrule
-
-% \end{tabular}
-% \end{table}
-
-% \begin{table}[h!]
-% \caption{Performance metrics for leave-one-subject-out (LOSO) cross-validation on ear-EEG using CNN embeddings}
-% ~\\
-% \centering
-% \begin{tabular}{c c c c c c c}
-% \toprule
-% Model & Accuracy & Prec(0) & Prec(1) & Rec(0) & Rec(1) & F1 \\
-% \midrule
-% RF (CNN emb)  & 96.95 & 88.89 & 97.54 & 72.73 & 99.17 & 98.35 \\
-% XGB (CNN emb) & 96.95 & 88.89 & 97.54 & 72.73 & 99.17 & 98.35 \\
-% \bottomrule
-% \end{tabular}
-% \end{table}
+\begin{IEEEkeywords}
+    Electroencephalography (EEG), ear-EEG, insomnia, hybrid, machine learning, lightweight, detection
+\end{IEEEkeywords}
 
 \section{Introduction}
 \subsection{Issue Statement}
@@ -117,11 +80,11 @@ Raw EEG signals were first denoised using a bandpass filter from 0.5-40 Hz to re
 \caption{EEG preprocessing pipeline applied across all experiments.}
 \label{tab:preprocessing}
 \vspace{2mm}
-\begin{tabular}{l p{7cm}}
+\begin{tabular}{l p{5cm}}
 \toprule
 Stage & Description \\
 \midrule
-Filtering      & 0.5--40 Hz Butterworth bandpass to remove drift and high-frequency noise \\
+Filtering      & 0.5-40 Hz Butterworth bandpass to remove high-frequency noise \\
 Resampling     & All recordings resampled to 200 Hz \\
 Epoching       & Segmentation into 30-second epochs across three EEG channels \\
 Normalization  & Z-score normalization applied per epoch \\
@@ -132,6 +95,14 @@ Normalization  & Z-score normalization applied per epoch \\
 Feature extraction was only applied for classical machine learning models, while deep learning models trained directly on normalized data. For classical machine learning experiments, features were extracted from the preprocessed. These included five power spectral density bands (alpha beta delta gamma theta), four band ratios (delta/theta, delta/alpha, alpha/beta, theta/alpha), Hjorth parameters (mobility, complexity, variance), and three basic statistical features including mean, standard, and skew. 
 
 \subsection{ML Development}
+Figure~\ref{fig:hybrid_pipeline} illustrates the overall hybrid modeling pipeline integrating classical and deep learning approaches. The pipeline consists of four main stages: (1) training base-level classical machine learning models on hand-crafted EEG features to establish performance baselines; (2) developing a lightweight 1D CNN to learn temporal representations directly from raw EEG epochs; (3) applying domain adaptation to fine-tune the CNN using ear-EEG data, aligning learned representations across modalities; and (4) extracting CNN-derived embeddings to serve as inputs to RF and XGB classifiers for final subject-level insomnia detection. 
+\begin{figure*}[t]
+\label{fig:hybrid_pipeline}
+    \centering
+    \includegraphics[width=\textwidth]{../figures/hybrid_pipeline.png}
+    \caption{Hybrid pipeline for classical and deep learning models.}
+\end{figure*}
+
 \subsubsection{Base-level Classical Machine Learning Models}
 As an initial modeling baseline, RF and XGB classifiers were trained directly on fifteen hand-crafted EEG features extracted from scalp EEG recordings.To improve generalization and reduce feature redundancy, Recursive Feature Elimination (RFE) was applied as part of the optimization pipeline. Hyperparameters were tuned using a two-stage strategy: RandomizedSearchCV was first used to identify promising regions of the search space, followed by GridSearchCV for fine-grained optimization. All evaluations were conducted using subject-wise cross-validation to prevent data leakage across epochs. These base-level models serve two purposes: first, they provide a transparent and well-established performance reference grounded in prior insomnia detection literature; second, they enable direct comparison between traditional feature-based approaches and the proposed deep learning–driven pipeline. Maintaining these base models allows clear attribution of performance gains to representation learning and domain adaptation rather than dataset or evaluation changes. This is particularly important given the class imbalance and limited number of subjects commonly encountered in sleep EEG studies.
 
@@ -145,7 +116,6 @@ Since scalp EEG datasets and ear-EEG deployment have a domain gap, the CNN was f
     \centering
     \includegraphics[width=0.9\linewidth]{../figures/cnn_loss.png}
     \caption{Binary cross-entropy loss across fine-tuning epochs for domain adaptation of the CNN to EESM19. The rapid initial decrease followed by convergence suggests effective alignment of learned representations.}
-    \label{fig:pipeline}
 \end{figure}
 
 \subsubsection{CNN-Based embedding extraction and hybrid classification}
@@ -155,6 +125,7 @@ Following fine-tuning, the CNN was repurposed as a feature extractor by removing
 \centering
 \small
 \caption{Modeling strategies and input representations.}
+\label{tab:model-strat}
 \vspace{2mm}
 \begin{tabular}{lccc}
 \toprule
@@ -169,6 +140,70 @@ CNN + RF       & 131 & CNN embeddings (64D)        & 120{,}862 \\
 
 \subsubsection{Interpretability}
 To address interpretability concerns, SHAP (SHapley Additive exPlanations) analysis was applied to the RF and XGB models trained on CNN-derived embeddings. This enables identification of embedding dimensions most influential in model decisions, reducing the black-box nature of the system and providing post-hoc validation of learned representations.
+
+\subsection{ML Evaluation}
+To evaluate the effectiveness of SerenEEG, models were assessed using subject-independent splits to prevent data leakage across epochs, ensuring that all samples from a given subject appeared exclusively in either the training or testing set. Performance was evaluated at the epoch level using standard classification metrics, enabling fair comparison across modeling paradigms. Table I summarizes the results of the top performing runs of baseline classical and deep learning models. Due to dataset imbalance, precision and recall metrics for both classes were portrayed separately to disencourage falsely high performances. 
+% best overall
+\begin{table}[h!]
+\caption{Best performance of baseline classical and deep learning models trained on handcrafted EEG features or raw waveforms.}
+~\\
+\begin{tabular}{c c c c c c c c}
+     \toprule
+     Model & Acc & Prec(0) & Prec(1) & Recall(0) & Recall(1) & F1\\
+     \midrule
+     RF & 94.47 & 71.70 & 99.20 & 94.66 & 94.40 & 89.22\\
+     XGB & 96.72 & 84.06 & 98.83 & 92.28 & 97.39 & 93.04 \\
+     CNN & 96.54 & 69.98 & 99.85 & 96.45 & 99.39 & 89.13\\
+     \bottomrule
+\end{tabular}
+\end{table}
+
+Furthermore, a 5-fold Group-K Cross-Validation was used to ensure generalization and no overfitting. Group-K prevented subject-level leakage while ensuring rigidity of the testing. Below are the results of the cross-validation.
+
+
+\begin{table}[h!]
+%best cv with SPREAD
+\caption{Performance metrics for baseline model 5-fold GroupK cross validation}
+~\\
+\begin{tabular}{c c c c c c c c}
+     \toprule
+     Model & Acc & Prec(0) & Prec(1) & Recall(0) & Recall(1) & F1\\
+     \midrule
+     RF & 90.76 & 65.48 & 98.35 & 90.14 & 92.51 & 85.59\\
+     XGB & 90.51 & 51.67 & 96.50 & 69.43 & 92.84 & 76.94\\
+     CNN & 96.54 & 69.98 & 99.85 & 96.45 & 96.39 & 89.13\\
+     \bottomrule
+
+\end{tabular}
+\end{table}
+
+While Group-K Cross-Validation effectively prevents leakage, models trained on CNN embeddings were evaluated using leave-one-subject-out (LOSO) cross-validation to impose a more stringent generalization criterion. LOSO evaluates the model on a completely unseen subject in each fold, testing the model’s ability to generalize to any new subject without prior exposure. This evaluation protocol aligns with real-world deployment scenarios in which the system encounters novel users. The results of this cross-validation are shown in Table VI.
+\begin{table}[h!]
+\caption{Performance metrics for leave-one-subject-out (LOSO) cross-validation on ear-EEG using CNN embeddings}
+~\\
+\centering
+\begin{tabular}{c c c c c c c}
+\toprule
+Model & Acc & Prec(0) & Prec(1) & Rec(0) & Rec(1) & F1 \\
+\midrule
+RF  & 96.95 & 88.89 & 97.54 & 72.73 & 99.17 & 98.35 \\
+XGB  & 96.95 & 88.89 & 97.54 & 72.73 & 99.17 & 98.35 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Results and Discussion}
+\subsection{Performance Results Analysis}
+\subsubsection{Model Comparison}
+Tables III and IV summarize the performance of baseline classical models and the standalone CNN under subject-independent evaluation. Across all experiments, subject-wise validation resulted in lower but more realistic performance, confirming the necessity of strict subject-level separation to avoid bias. Among baseline models, RF and XGB outperformed the CNN in terms of highest accuracy achieved, however, the CNN outperforms the two classical models in recall, which is the metric that this study focuses on due to the class imbalance. Furthermore, in cross-validation, the CNN performs remarkably well for the extreme class imbalance, achieving an F1 score of 89.13, indicating improved sensitivity to the minority class while maintaining strong performance in the majority class. 
+
+The final hybrid CNN-RF achieved strong overall performance on ear-EEG mixed with the original training dataset, suggesting that a hybrid model may improve specialized weaknesses in other singular models. Although both the RF and XGB achieved the same performance in LOSO cross-validation, RF was chosen mainly due to its higher performance in the baseline models and consistently high performance in previous studies.
+\subsubsection{Design Choice}
+Evaluation on ear-EEG data following domain adaptation demonstrates that the CNN retained its learned temporal representations while adapting to modality-specific signal characteristics. Although performance on ear-EEG was modestly reduced compared to scalp EEG, the degradation remained within an acceptable range, indicating successful transfer across modalities.
+
+These results validate the design choice of training on large scalp EEG datasets while fine-tuning on limited ear-EEG data, enabling scalable model development without sacrificing deployment feasibility.
+
+\subsubsection{Interpretability}
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}
