@@ -5,17 +5,24 @@
 \usepackage{amsmath, amssymb}
 \usepackage{microtype}
 
-\title{SerenEEG: A Lightweight Hybrid Machine Learning Approach to Insomnia Detection from Ear-EEG.}
-\author{Maggie Sun and Hannah Tay}
+\title{SerenEEG: A Lightweight Hybrid Machine Learning Approach Toward Ear-EEG–Based Insomnia Detection.}
 \overfullrule=5pt
 \date{December 2025}
+\author{
+\IEEEauthorblockN{Maggie Sun and Hannah Tay}
+\IEEEauthorblockA{
+The Harker School \\
+San Jose, California, USA \\
+29maggies@students.harker.org
+}
+}
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-    
+Insomnia is a prevalent global health condition with significant cognitive and psychological consequences, yet effective treatment and monitoring remain limited in accessibility for many individuals. Recent studies have explored machine learning-based detection using electroencephalography (EEG) data; however, many approaches rely on subject-mixed evaluation protocols and offer limited interpretability, raising concerns regarding generalization to unseen individuals. To address these challenges, we propose SerenEEG, a hybrid modeling pipeline that combines convolutional neural network (CNN)-based representation learning with a  Random Forest (RF) classifier for stable and interpretable decision-making. The CNN is used as a feature extractor to learn compact temporal embeddings, which are subsequently classified using RF to improve stability and interpretability. SerenEEG is evaluated under strict subject-independent validation using leave-one-subject-out (LOSO) cross-validation on imbalanced multi-dataset EEG data. Experimental results demonstrate competitive performance under strict subject-independent evaluation across clinically relevant metrics while preventing data leakage, highlighting the potential of hybrid modeling strategies for practical insomnia detection. 
 \end{abstract}
 
 
@@ -139,8 +146,7 @@ CNN + RF       & 131 & CNN embeddings (64D)        & 120{,}862 \\
 \end{table}
 
 \subsubsection{Interpretability}
-To address interpretability concerns, SHAP (SHapley Additive exPlanations) analysis was applied to the RF and XGB models trained on CNN-derived embeddings. This enables identification of embedding dimensions most influential in model decisions, reducing the black-box nature of the system and providing post-hoc validation of learned representations.
-
+To address interpretability concerns, SHAP (SHapley Additive exPlanations) analysis was applied to the RF and XGB models trained on CNN-derived embeddings. This enables identification of embedding dimensions most influential in model decisions, reducing the black-box nature of the system and providing post-hoc validation of learned representations. Feature importance rankings were derived by averaging absolute SHAP values across samples.
 \subsection{ML Evaluation}
 To evaluate the effectiveness of SerenEEG, models were assessed using subject-independent splits to prevent data leakage across epochs, ensuring that all samples from a given subject appeared exclusively in either the training or testing set. Performance was evaluated at the epoch level using standard classification metrics, enabling fair comparison across modeling paradigms. Table I summarizes the results of the top performing runs of baseline classical and deep learning models. Due to dataset imbalance, precision and recall metrics for both classes were portrayed separately to disencourage falsely high performances. 
 % best overall
@@ -204,6 +210,37 @@ Evaluation on ear-EEG data following domain adaptation demonstrates that the CNN
 These results validate the design choice of training on large scalp EEG datasets while fine-tuning on limited ear-EEG data, enabling scalable model development without sacrificing deployment feasibility.
 
 \subsubsection{Interpretability}
+Figure X and Figure Y show SHAP summary plots for the RF and XGB models, respectively. The RF model SHAP values are tightly clustered around zero across most features, indicating that predictive contributions are distributed conservatively across the feature space. In contrast, the XGB model displays larger-magnitude SHAP values with clearer directional trends, suggesting stronger reliance on a subset of features. Furthermore, SHAP interaction analysis reveals minimal pairwise interaction effects in the RF model, while XGB demonstrates more pronounced interaction patterns among higher-ranked features.
+
+\begin{figure}[t]
+\label{fig:rf_shap}
+    \centering
+    \includegraphics[width=0.9\linewidth]{../figures/rf_shap.png}
+    \caption{SHAP summary plot for the RF model.}
+\end{figure}
+
+\begin{figure}[t]
+\label{fig:xgb_shap}
+    \centering
+    \includegraphics[width=0.9\linewidth]{../figures/xgb_shap.png}
+    \caption{SHAP summary plot for the XGB model.}
+\end{figure}
+
+The observed differences between RF and XGB reflect their distinct learning mechanisms: RF aggregates predictions from independently trained areas, resulting in more conservative feature attributions and the model’s lower variance under subject-independent evaluation. In contrast, XGB trains trees sequentially to correct errors, which amplifies the influence of features that consistently reduce prediction error, resulting in sharper SHAP values aligned with increased sensitivity to subject-specific patterns. While XGB provides clearer feature dominance, its aggressive optimization may overemphasize dataset-specific artifacts whereas the RF model’s attributions suggest reliance on a broader set of representations, contributing to improved robustness. Consequently, RF was selected as the final classifier in the hybrid pipeline.
+
+\subsection{Comparison with Prior Works}
+Prior work on EEG-based insomnia detection has reported high classification accuracies, particularly using classical machine learning models trained on hand-crafted features (Tiwari et al., 2022; Sharma et al., 2023). However, many of these studies rely on epoch-mixed or random data splits and do not explicitly enforce subject-level independence, which can lead to optimistic performance estimates. More recent studies incorporating neural network–based approaches, including shallow architectures, have explored learned representations but have shown inconsistent improvements over classical methods, particularly under limited dataset sizes (Mondal et al., 2025).
+
+In contrast, SerenEEG emphasizes rigorous subject-independent evaluation using LOSO cross-validation and reports a broader set of clinically relevant metrics beyond accuracy, including class-specific precision and recall. Rather than optimizing for nominal accuracy, SerenEEG prioritizes generalization robustness, interpretability, and deployment realism, providing a more conservative yet realistic assessment of performance for real-world insomnia detection.
+
+\subsection{Limitations}
+While SerenEEG successfully domain-adapted to ear-EEG, the primary training data consisted of scalp EEG channels referenced to the A1 mastoid electrode rather than true in-ear recordings. While this choice enables scalable training and anatomical proximity to the ear, residual domain mismatch may remain. Second, the scarcity of large, well-annotated ear-EEG insomnia datasets restricts comprehensive validation. Finally, computational and storage constraints limited the exploration of larger model architectures and extensive training and searches.
+
+\section{Conclusion and Future Work}
+\subsection{Conclusion}
+This paper introduces SerenEEG, one of the earliest hybrid CNN–Random Forest pipelines for subject-independent insomnia detection using EEG signals. By leveraging CNN-based representation learning and classical machine learning for robust decision-making, SerenEEG achieves competitive performance under strict LOSO evaluation on imbalanced datasets. Unlike prior approaches that emphasize nominal accuracy under less rigorous validation, SerenEEG prioritizes generalization, interpretability, and deployment realism, demonstrating the viability of hybrid modeling strategies for practical sleep monitoring applications.
+\subsection{Future Work}
+Future work will focus on validating SerenEEG using larger, clinically annotated ear-EEG datasets to further reduce domain mismatch and assess long-term real-world performance. Additional efforts will explore closed-loop integration with SerenEEG hardware, enabling adaptive intervention based on real-time predictions. Expanding the hybrid framework to incorporate multimodal signals and investigating lightweight architectures optimized for on-device inference represent further directions to enhance clinical applicability.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}

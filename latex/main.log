@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  4 JAN 2026 10:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  4 JAN 2026 19:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -249,20 +249,20 @@ File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 ) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
 
 -- Lines per column: 58 (exact).
 (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -284,20 +284,20 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/local/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-LaTeX Info: Redefining \microtypecontext on input line 13.
-Package microtype Info: Applying patch `item' on input line 13.
-Package microtype Info: Applying patch `toc' on input line 13.
-Package microtype Info: Applying patch `eqnum' on input line 13.
-Package microtype Info: Applying patch `footnote' on input line 13.
-Package microtype Info: Applying patch `verbatim' on input line 13.
-LaTeX Info: Redefining \microtypesetup on input line 13.
+LaTeX Info: Redefining \microtypecontext on input line 20.
+Package microtype Info: Applying patch `item' on input line 20.
+Package microtype Info: Applying patch `toc' on input line 20.
+Package microtype Info: Applying patch `eqnum' on input line 20.
+Package microtype Info: Applying patch `footnote' on input line 20.
+Package microtype Info: Applying patch `verbatim' on input line 20.
+LaTeX Info: Redefining \microtypesetup on input line 20.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 13.
+LaTeX Info: Redefining \showhyphens on input line 20.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -306,13 +306,13 @@ File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 31.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 38.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 31.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 38.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msb.cfg
@@ -326,35 +326,60 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 
 ]
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-
-Underfull \hbox (badness 5260) in paragraph at lines 90--91
+Underfull \hbox (badness 5260) in paragraph at lines 97--98
 []\OT1/ptm/m/n/9 (+20) Z-score nor-mal-iza-tion ap-plied per
  []
 
 
 
-<../figures/hybrid_pipeline.png, id=12, 2749.27126pt x 731.73375pt>
+[2]
+<../figures/hybrid_pipeline.png, id=19, 2749.27126pt x 731.73375pt>
 File: ../figures/hybrid_pipeline.png Graphic file (type png)
 <use ../figures/hybrid_pipeline.png>
-Package pdftex.def Info: ../figures/hybrid_pipeline.png  used on input line 102.
+Package pdftex.def Info: ../figures/hybrid_pipeline.png  used on input line 109.
 (pdftex.def)             Requested size: 516.0pt x 137.33372pt.
-
-
-[2]
 <../figures/cnn_loss.png, id=21, 1806.75pt x 1204.5pt>
 File: ../figures/cnn_loss.png Graphic file (type png)
 <use ../figures/cnn_loss.png>
-Package pdftex.def Info: ../figures/cnn_loss.png  used on input line 117.
+Package pdftex.def Info: ../figures/cnn_loss.png  used on input line 124.
 (pdftex.def)             Requested size: 226.79846pt x 151.18701pt.
 
 
 
 
-[3 <../figures/hybrid_pipeline.png> <../figures/cnn_loss.png>]
+[3]
 
-(./main.bbl
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+
+
+[4 <../figures/hybrid_pipeline.png> <../figures/cnn_loss.png>]
+<../figures/rf_shap.png, id=31, 3462.9375pt x 1987.425pt>
+File: ../figures/rf_shap.png Graphic file (type png)
+<use ../figures/rf_shap.png>
+Package pdftex.def Info: ../figures/rf_shap.png  used on input line 218.
+(pdftex.def)             Requested size: 226.79846pt x 130.15758pt.
+<../figures/xgb_shap.png, id=32, 2409.0pt x 2860.6875pt>
+File: ../figures/xgb_shap.png Graphic file (type png)
+<use ../figures/xgb_shap.png>
+Package pdftex.def Info: ../figures/xgb_shap.png  used on input line 225.
+(pdftex.def)             Requested size: 226.79846pt x 269.32372pt.
+
+
+
+Underfull \hbox (badness 4378) in paragraph at lines 234--235
+[]\OT1/ptm/m/n/10 (+20) In con-trast, Sere-nEEG em-pha-sizes rig-or-ous subject-
+ []
+
+
+
+[5 <../figures/rf_shap.png> <../figures/xgb_shap.png>] (./main.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 30--31
 []\OT1/ptm/m/n/8 (+20) ``When You Can't Sleep: How CBT-I Can Help,''
  []
@@ -369,13 +394,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 36--37
 \OT1/ptm/m/n/8 (+20) Clinic,'' https://www.mayoclinic.org/diseases-conditions/insomnia/in-
  []
 
-
-
-[4])
+)
 
 
 
-[5
+[6
 
 ] (./main.aux)
  ***********
@@ -384,18 +407,18 @@ L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 6131 strings out of 473190
- 97882 string characters out of 5715801
- 548198 words of memory out of 5000000
- 29067 multiletter control sequences out of 15000+600000
- 611836 words of font info for 281 fonts, out of 8000000 for 9000
+ 6170 strings out of 473190
+ 98513 string characters out of 5715801
+ 545677 words of memory out of 5000000
+ 29083 multiletter control sequences out of 15000+600000
+ 612821 words of font info for 297 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,11n,65p,1942b,297s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,11n,65p,1942b,283s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (5 pages, 248180 bytes).
+Output written on main.pdf (6 pages, 581880 bytes).
 PDF statistics:
- 81 PDF objects out of 1000 (max. 8388607)
- 47 compressed objects within 1 object stream
+ 88 PDF objects out of 1000 (max. 8388607)
+ 49 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 54283 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 54293 words of extra memory for PDF output out of 61914 (max. 10000000)
 

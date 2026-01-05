@@ -1,5 +1,5 @@
 # Fdb version 4
-["bibtex main"] 1767126202.1436 "main.aux" "main.bbl" "main" 1767551913.57797 0
+["bibtex main"] 1767126202.1436 "main.aux" "main.bbl" "main" 1767584101.6195 0
   "/usr/local/texlive/2025/texmf-dist/bibtex/bst/ieeetran/IEEEtran.bst" 1440712899 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
   "main.aux" 1767126448.17 5362 12d3b0a46eac1eca5943d9021e6e7075 "pdflatex"
   "references.bib" 0 -1 0 ""
@@ -7,10 +7,12 @@
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1767551912.51615 "/Volumes/ORICO/SerenEEG/paper/latex/main.tex" "main.pdf" "main" 1767551913.57812 0
+["pdflatex"] 1767584099.94291 "/Volumes/ORICO/SerenEEG/paper/latex/main.tex" "main.pdf" "main" 1767584101.61964 0
   "../figures/cnn_loss.png" 1767124188.31 114059 281ff7598cf3fb16790fbfc679718cec ""
   "../figures/hybrid_pipeline.png" 1767551268.06 60659 d6743fb7225584698bfc506763f6a226 ""
-  "/Volumes/ORICO/SerenEEG/paper/latex/main.tex" 1767551910.8 21020 45038c23a6c29cc737721d988d22a74c ""
+  "../figures/rf_shap.png" 1767566283.94 209400 beb9f9e2abb4a7033713cebd506fdc08 ""
+  "../figures/xgb_shap.png" 1767566271.1 398128 6dbd9e5e6d9d6e7287c6b495c7a63584 ""
+  "/Volumes/ORICO/SerenEEG/paper/latex/main.tex" 1767584097.16 27335 eb79ed86cd9c47e73d9b68d8823cb063 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1136768653 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -90,9 +92,9 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1767119677 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1741450574 3345740 46b66fdb0378f7bf5921b5eabf1762b8 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "main.aux" 1767551913.34 6321 9310921cb91f69904cee0c2cc9bbd532 "pdflatex"
+  "main.aux" 1767584101.38 7309 bdea0bf284a7879f22b7286f43bd4ebd "pdflatex"
   "main.bbl" 1767126202.26 5418 b3242c09723d51f5e7ed6dc8b79deaf4 "bibtex main"
-  "main.tex" 1767551910.8 21020 45038c23a6c29cc737721d988d22a74c ""
+  "main.tex" 1767584097.16 27335 eb79ed86cd9c47e73d9b68d8823cb063 ""
   (generated)
   "main.aux"
   "main.log"
